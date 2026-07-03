@@ -25,22 +25,26 @@ def get_message():
     message = simpledialog.askstring('Message', 'Enter the secret message: ')
     return message
 
-root = Tk()
+def main():
+    root = Tk()
 
-while True:
-    task = get_task()
-    if task == 'encrypt':
-        message = get_message()
-        encrypted = encrypt_with_cryptography(message)
-        messagebox.showinfo('Ciphertext of the secret message is: ', encrypted)
-        copy_choice = messagebox.askyesno('Copy?', 'Do you want to copy this to clipboard?')
-        if copy_choice:
-            copy_to_clipboard(encrypted)
-    elif task == 'decrypt':
-        message = get_message()
-        decrypted = decrypt_with_cryptography(message)
-        messagebox.showinfo('Plaintext of the secret message is: ', decrypted)
-    else:
-        break
-    root.mainloop
+    while True:
+        task = get_task()
+        if task == 'encrypt':
+            message = get_message()
+            encrypted = encrypt_with_cryptography(message)
+            messagebox.showinfo('Ciphertext of the secret message is: ', encrypted)
+            copy_choice = messagebox.askyesno('Copy?', 'Do you want to copy this to clipboard?')
+            if copy_choice:
+                copy_to_clipboard(encrypted)
+        elif task == 'decrypt':
+            message = get_message()
+            decrypted = decrypt_with_cryptography(message)
+            messagebox.showinfo('Plaintext of the secret message is: ', decrypted)
+        else:
+            break
+        root.mainloop
 
+
+if __name__ == "__main__":
+    main()

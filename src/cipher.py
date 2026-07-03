@@ -2,16 +2,13 @@ from cryptography.fernet import Fernet
 from tkinter import messagebox, simpledialog, Tk
 import pyperclip
 
-encryption_key = Fernet.generate_key()
-cipher_suite = Fernet(encryption_key)
 
-
-def encrypt_with_cryptography(message):
+def encrypt_with_cryptography(message, cipher_suite):
     encrypted_message = cipher_suite.encrypt(message.encode())
     return encrypted_message.decode()
 
 
-def decrypt_with_cryptography(encrypted_message):
+def decrypt_with_cryptography(encrypted_message, cipher_suite):
     decrypted_message = cipher_suite.decrypt(encrypted_message.encode())
     return decrypted_message.decode()
 
@@ -34,11 +31,14 @@ def get_message():
 def main():
     root = Tk()
 
+    encryption_key = Fernet.generate_key()
+    cipher_suite = Fernet(encryption_key)
+
     while True:
         task = get_task()
         if task == "encrypt":
             message = get_message()
-            encrypted = encrypt_with_cryptography(message)
+            encrypted = encrypt_with_cryptography(message, cipher_suite)
             messagebox.showinfo("Ciphertext of the secret message is: ", encrypted)
             copy_choice = messagebox.askyesno(
                 "Copy?", "Do you want to copy this to clipboard?"
@@ -47,7 +47,7 @@ def main():
                 copy_to_clipboard(encrypted)
         elif task == "decrypt":
             message = get_message()
-            decrypted = decrypt_with_cryptography(message)
+            decrypted = decrypt_with_cryptography(message, cipher_suite)
             messagebox.showinfo("Plaintext of the secret message is: ", decrypted)
         else:
             break

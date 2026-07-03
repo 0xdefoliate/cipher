@@ -51,7 +51,7 @@ def main():
             messagebox.showinfo("Plaintext of the secret message is: ", decrypted)
         else:
             break
-        root.mainloop
+        root.mainloop()
 
 
 if __name__ == "__main__":
